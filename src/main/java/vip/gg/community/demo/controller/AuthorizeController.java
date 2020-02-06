@@ -11,7 +11,9 @@ import vip.gg.community.demo.mapper.UserMapper;
 import vip.gg.community.demo.model.User;
 import vip.gg.community.demo.provider.GithubProvider;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 /**
@@ -38,7 +40,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletRequest request){
+                           HttpServletResponse response){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
         accessTokenDTO.setClient_id(clientId);
@@ -49,16 +51,14 @@ public class AuthorizeController {
         GithubUser githubUser = githubProvider.getUser(accessToken);
         if(githubUser!=null){
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
-            //登陆成功，写cookie和session
-            request.getSession().setAttribute("user", githubUser);
-
-
+            response.addCookie(new Cookie("token",token));
         }else{
             //登陆失败，重新登陆
         }
