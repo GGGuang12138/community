@@ -35,4 +35,13 @@ public class GithubUser {
 
     public GithubUser() {
     }
+
+    @Override
+    public String toString() {
+        return "GithubUser{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", bio='" + bio + '\'' +
+                '}';
+    }
 }

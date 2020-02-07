@@ -59,4 +59,5 @@ public class User {
     public void setGmtModified(Long gmtModified) {
         this.gmtModified = gmtModified;
     }
+
 }
