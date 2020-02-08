@@ -34,8 +34,6 @@ Flyway
         	constraint USER_PK
         		primary key (ID)
         );
-
-    
 ```
 
  
