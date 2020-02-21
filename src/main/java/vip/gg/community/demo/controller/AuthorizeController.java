@@ -10,6 +10,7 @@ import vip.gg.community.demo.dto.GithubUser;
 import vip.gg.community.demo.mapper.UserMapper;
 import vip.gg.community.demo.model.User;
 import vip.gg.community.demo.provider.GithubProvider;
+import vip.gg.community.demo.service.Userservice;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +36,8 @@ public class AuthorizeController {
     private String redirectUri;
 
     @Autowired(required = false)
-    private UserMapper userMapper;
-    
+    private Userservice userService;
+
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
@@ -58,12 +59,23 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            userMapper.insert(user);
+            userService.update(user);
             response.addCookie(new Cookie("token",token));
         }else{
             //登陆失败，重新登陆
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String loyout(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
+
     }
 
 }

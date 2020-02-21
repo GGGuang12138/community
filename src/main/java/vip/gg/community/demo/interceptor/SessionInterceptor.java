@@ -6,10 +6,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import vip.gg.community.demo.mapper.UserMapper;
 import vip.gg.community.demo.model.User;
+import vip.gg.community.demo.model.UserExample;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Creat by GG
@@ -27,9 +29,11 @@ public class SessionInterceptor implements HandlerInterceptor {
             for(Cookie cookie:cookies){
                 if(cookie.getName().equals("token")){
                     String token = cookie.getValue();//token保存cookies中找到token的值
-                    User user = userMapper.findByToken(token);//数据库找到同token的记录，保存为user
-                    if(user!=null){
-                        request.getSession().setAttribute("user",user);
+                    UserExample userExample =  new UserExample();
+                    userExample.createCriteria().andTokenEqualTo(token);
+                    List<User> users = userMapper.selectByExample(userExample);//数据库找到同token的记录，保存为user
+                    if(users.size()!=0){
+                        request.getSession().setAttribute("user",users.get(0));
                     }
                     break;
                 }
