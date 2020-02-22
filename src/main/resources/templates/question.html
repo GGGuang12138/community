@@ -17,8 +17,7 @@
             <h3><span th:text="${question.title}"></span></h3>
             <span class="text-desc">
                 作者：<span th:text="${question.user.name}"></span>
-                &nbsp;&nbsp;&nbsp;评论数：<span th:text="${question.commentCount}"></span>
-                &nbsp;&nbsp;&nbsp;浏览数：<span th:text="${question.viewCount}"></span>
+                &nbsp;&nbsp;&nbsp;阅读数：<span th:text="${question.viewCount}"></span>
                 &nbsp;&nbsp;&nbsp;发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
             </span>
             <hr class="col-lg-11 col-md-11 col-sm-11 col-xs-11">

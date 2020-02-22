@@ -8,6 +8,7 @@ import vip.gg.community.demo.dto.PaginationDTO;
 import vip.gg.community.demo.dto.QuestionDTO;
 import vip.gg.community.demo.exception.CustomizeErrorCode;
 import vip.gg.community.demo.exception.CustomizeException;
+import vip.gg.community.demo.mapper.QuestionExMapper;
 import vip.gg.community.demo.mapper.QuestionMapper;
 import vip.gg.community.demo.mapper.UserMapper;
 import vip.gg.community.demo.model.Question;
@@ -23,6 +24,9 @@ import java.util.List;
  */
 @Service
 public class QuestionService {
+
+    @Autowired(required = false)
+    private QuestionExMapper questionExMapper;
 
     @Autowired(required = false)
     private QuestionMapper questionMapper;
@@ -122,5 +126,12 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void incView(Integer id) {
+       Question question = new Question();
+       question.setId(id);
+       question.setViewCount(1);
+       questionExMapper.incView(question);
     }
 }
