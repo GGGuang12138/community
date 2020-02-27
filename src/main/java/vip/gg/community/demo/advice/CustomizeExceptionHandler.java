@@ -1,14 +1,18 @@
 package vip.gg.community.demo.advice;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
+import com.alibaba.fastjson.JSON;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+import vip.gg.community.demo.dto.ResultDTO;
+import vip.gg.community.demo.exception.CustomizeErrorCode;
 import vip.gg.community.demo.exception.CustomizeException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Creat by GG
@@ -18,12 +22,38 @@ import javax.servlet.http.HttpServletRequest;
 public class CustomizeExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    ModelAndView handle(HttpServletRequest request, Throwable e, Model model) {
-        if(e instanceof CustomizeException){
-            model.addAttribute("message",e.getMessage());
+    ModelAndView handle(Throwable e, Model model, HttpServletRequest request, HttpServletResponse response) {
+        String contentType = request.getContentType();
+        if("application/json".equals(contentType)){
+            //返回JSON
+            ResultDTO resultDTO;
+            if(e instanceof CustomizeException){
+                resultDTO = ResultDTO.errorOf((CustomizeException)e);
+            }else{
+                resultDTO = ResultDTO.errorOf(CustomizeErrorCode.SYS_ERROR);
+            }
+            try {
+                //流输出
+                response.setContentType("application/json");
+                response.setStatus(200);
+                response.setCharacterEncoding("utf-8");
+                PrintWriter writer = response.getWriter();
+                writer.write(JSON.toJSONString(resultDTO));
+                writer.close();
+
+            }catch (IOException ioe){
+
+            }
+            return null;
         }else {
-            model.addAttribute("message","过会儿再试呗～");
+            //错误页面跳转
+            if(e instanceof CustomizeException){
+                model.addAttribute("message",e.getMessage());
+            }else {
+                model.addAttribute("message","过会儿再试呗～");
+            }
+            return new ModelAndView("error");
         }
-        return new ModelAndView("error");
+
     }
 }

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vip.gg.community.demo.dto.QuestionDTO;
-import vip.gg.community.demo.mapper.QuestionMapper;
-import vip.gg.community.demo.mapper.UserMapper;
 import vip.gg.community.demo.model.Question;
 import vip.gg.community.demo.model.User;
 import vip.gg.community.demo.service.QuestionService;
@@ -27,7 +25,7 @@ public class PublishController {
     private QuestionService questionService;
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id") Integer id,
+    public String edit(@PathVariable(name = "id") Long id,
                        Model model){
         QuestionDTO question = questionService.getById(id);
         model.addAttribute("title",question.getTitle());
@@ -47,7 +45,7 @@ public class PublishController {
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("tag") String tag,
-            @RequestParam("id") Integer id,
+            @RequestParam("id") Long id,
             HttpServletRequest request,
             Model model){
         model.addAttribute("title",title);

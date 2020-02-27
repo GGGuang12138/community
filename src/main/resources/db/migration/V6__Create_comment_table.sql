@@ -10,3 +10,6 @@ create table comment
 	constraint comment_pk
 		primary key (id)
 );
+alter table QUESTION
+	add constraint QUESTION_pk
+		primary key (ID);
