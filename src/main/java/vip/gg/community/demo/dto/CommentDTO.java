@@ -1,14 +1,21 @@
 package vip.gg.community.demo.dto;
 
 import lombok.Data;
+import vip.gg.community.demo.model.User;
 
 /**
  * Creat by GG
- * Date on 2020/2/22  4:55 下午
+ * Date on 2020/2/27  12:05 下午
  */
 @Data
 public class CommentDTO {
+    private Long id;
     private Long parentId;
-    private String content;
     private Integer type;
+    private Long commentator;
+    private Long gmtCreate;
+    private Long gmtModified;
+    private Long likeCount;
+    private String content;
+    private User user;
 }

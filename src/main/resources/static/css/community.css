@@ -14,7 +14,7 @@ body{
     height: 40px;
 }
 .media-body{
-    padding-top: 10px;
+    padding-top: 6px;
 }
 .text-desc{
     font-size: 12px;
@@ -34,4 +34,25 @@ body{
 .btn-comment{
     float: right;
     margin-bottom: 10px;
+}
+.comment-sp{
+    margin-top: 2px;
+}
+.menu{
+    color: #999;
+    margin-top: 8px;
+}
+.menu .icon{
+    margin-right: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.menu .icon:hover{
+    color: #499ef3;
+}
+.edit-hr{
+    margin-bottom: 10px;
+}
+.question_title{
+    margin-top: 25px;
 }

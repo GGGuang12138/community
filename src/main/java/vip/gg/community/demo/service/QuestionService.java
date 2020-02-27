@@ -4,10 +4,12 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vip.gg.community.demo.dto.CommentDTO;
 import vip.gg.community.demo.dto.PaginationDTO;
 import vip.gg.community.demo.dto.QuestionDTO;
 import vip.gg.community.demo.exception.CustomizeErrorCode;
 import vip.gg.community.demo.exception.CustomizeException;
+import vip.gg.community.demo.mapper.CommentMapper;
 import vip.gg.community.demo.mapper.QuestionExMapper;
 import vip.gg.community.demo.mapper.QuestionMapper;
 import vip.gg.community.demo.mapper.UserMapper;
@@ -115,6 +117,9 @@ public class QuestionService {
             //创建
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setLikeCount(0);
+            question.setCommentCount(0);
             questionMapper.insert(question);
         }else{
             //更新
@@ -134,4 +139,5 @@ public class QuestionService {
        question.setViewCount(1);
        questionExMapper.incView(question);
     }
+
 }
