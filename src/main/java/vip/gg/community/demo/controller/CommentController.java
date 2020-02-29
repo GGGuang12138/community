@@ -5,13 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import vip.gg.community.demo.dto.CommentCreateDTO;
+import vip.gg.community.demo.dto.CommentDTO;
 import vip.gg.community.demo.dto.ResultDTO;
+import vip.gg.community.demo.enums.CommentTypeEnum;
 import vip.gg.community.demo.exception.CustomizeErrorCode;
 import vip.gg.community.demo.model.Comment;
 import vip.gg.community.demo.model.User;
 import vip.gg.community.demo.service.CommentService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Creat by GG
@@ -48,6 +51,12 @@ public class CommentController {
         commentService.insert(comment);
 
         return ResultDTO.okof();
+    }
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
+    public  ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id") Long id){
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        return  ResultDTO.okof(commentDTOS);
     }
 
 }

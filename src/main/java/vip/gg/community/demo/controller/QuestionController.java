@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import vip.gg.community.demo.dto.CommentDTO;
 import vip.gg.community.demo.dto.QuestionDTO;
+import vip.gg.community.demo.enums.CommentTypeEnum;
 import vip.gg.community.demo.service.CommentService;
 import vip.gg.community.demo.service.QuestionService;
 
@@ -30,7 +31,7 @@ public class QuestionController {
                            Model model
     ){
         QuestionDTO questionDTO = questionService.getById(id);
-        List<CommentDTO> commentDTOList = commentService.listByQuestionId(id);
+        List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comments",commentDTOList);

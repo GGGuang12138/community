@@ -38,6 +38,16 @@ body{
 .comment-sp{
     margin-top: 2px;
 }
+.sub-comments{
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #eeeeee;
+    padding-top: 15px;
+}
+.sub-comments .btn{
+    margin: 10px 0;
+}
 .menu{
     color: #999;
     margin-top: 8px;
@@ -46,6 +56,14 @@ body{
     margin-right: 8px;
     font-size: 16px;
     cursor: pointer;
+}
+.menu .icon2{
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.menu .active{
+    color: #499ef3;
 }
 .menu .icon:hover{
     color: #499ef3;
