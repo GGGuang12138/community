@@ -1,5 +1,6 @@
 package vip.gg.community.demo.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import vip.gg.community.demo.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Creat by GG
@@ -51,7 +53,9 @@ public class QuestionService {
         //往pagination里放question
         //size*(page-1)
         Integer offset = size * (page-1);
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("gmt_create desc");
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for(Question question :questions){
             User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -140,4 +144,21 @@ public class QuestionService {
        questionExMapper.incView(question);
     }
 
+
+    public List<QuestionDTO> selectRelated(QuestionDTO queryDTO) {
+        if(StringUtils.isBlank(queryDTO.getTag())){
+            return new ArrayList<>();
+        }
+        String regexpTag = StringUtils.replace(queryDTO.getTag(),"/","|");
+        Question question = new Question();
+        question.setId(queryDTO.getId());
+        question.setTag(regexpTag);
+        List<Question> questions = questionExMapper.selectRelated(question);
+        List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(q,questionDTO);
+            return questionDTO;
+        }).collect(Collectors.toList());
+        return questionDTOS;
+    }
 }

@@ -102,6 +102,5 @@ public class CommentService {
             return commentDTO;
         }).collect(Collectors.toList());
         return commentDTOS;
-
     }
 }

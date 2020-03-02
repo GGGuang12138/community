@@ -24,6 +24,19 @@ body{
 .profile .section {
     margin-top: 20px;
 }
+.question-tag{
+    margin-right: 5px;
+}
+.question-related{
+    line-height: 20px;
+    font-size:14px;
+    margin-left: 0;
+    list-style: none;
+    padding-left:0;
+}
+.question-wechat{
+    width: 70%;
+}
 .community-menu{
     color: #999;
     font-size: 13px;

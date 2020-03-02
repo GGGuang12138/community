@@ -24,4 +24,7 @@
     COMMENT_COUNT = COMMENT_COUNT + #{commentCount,jdbcType=INTEGER}
     where id = #{id}
   </update>
+  <select id="selectRelated" parameterType="vip.gg.community.demo.model.Question" resultMap="BaseResultMap">
+    select * from QUESTION where id != #{id} and tag regexp #{tag}
+  </select>
 </mapper>
