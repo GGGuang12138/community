@@ -25,7 +25,10 @@ body{
     margin-top: 20px;
 }
 .question-tag{
-    margin-right: 5px;
+    margin: 4px 5px;
+    white-space: normal;
+    display: inline-block;
+    font-size: 85%;
 }
 .question-related{
     line-height: 20px;

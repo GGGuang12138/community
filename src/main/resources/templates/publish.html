@@ -35,13 +35,13 @@
                            autocomplete="off" onclick="showSelectTag()">
                     <div id = "select-tag"  class="publish-tag-tab">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" th:each="selectCategory: ${tags}">
+                            <li role="presentation" th:each="selectCategory,selectCategoryState: ${tags}" th:class="${selectCategoryState.first ?'active':''}">
                                 <a th:href="${'#'+selectCategory.categoryName}" aria-controls="home" role="tab" data-toggle="tab" th:text="${selectCategory.categoryName}"></a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane" th:id="${selectCategory.categoryName}" th:each="selectCategory: ${tags}">
+                            <div role="tabpanel" th:class="${selectCategoryState.first ?'active tab-pane':'tab-pane'}" th:id="${selectCategory.categoryName}" th:each="selectCategory,selectCategoryState: ${tags}">
                                  <span class="label label-info question-tag" th:each="selectTag: ${selectCategory.tags}">
                                      <span class="glyphicon glyphicon-tags"></span>
                                      <span class="label label-info " onclick="selectTag(this)" th:data-tag="${selectTag}" th:text="${selectTag}"></span>
