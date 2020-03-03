@@ -34,6 +34,12 @@ body{
     list-style: none;
     padding-left:0;
 }
+.publish-tag-tab{
+    display:none;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
 .question-wechat{
     width: 70%;
 }

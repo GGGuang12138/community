@@ -103,3 +103,20 @@ function collapseComments(e) {
         }
     }
 }
+//点击标签写入
+function selectTag(e) {
+    var value = e.getAttribute("data-tag");
+    var previous = $("#tag").val();//先保存
+    if(previous.split("/").indexOf(value) == -1){
+        if(previous){
+            $("#tag").val(previous+'/'+value)
+        }else{
+            $("#tag").val(value)
+        }
+    }
+}
+//展示标签列表
+function showSelectTag() {
+    $("#select-tag").show();
+
+}
