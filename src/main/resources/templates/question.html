@@ -6,10 +6,15 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="/css/community.css"/>
+    <link rel="stylesheet" href="/css/editormd.preview.min.css"/>
     <script src="/js/jquery-3.4.1.min.js" ></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/community.js" type="application/javascript"></script>
     <script src="/js/comment.js" type="application/javascript"></script>
+    <script src="/js/editormd.min.js" type="application/javascript"></script>
+    <script src="/js/lib/marked.min.js" type="application/javascript"></script>
+    <script src="/js/lib/prettify.min.js" type="application/javascript"></script>
+
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -26,7 +31,14 @@
                 &nbsp;&nbsp;&nbsp;发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
             </span>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view">
+                    <textarea style="display:none;" th:text="${question.description}"></textarea>
+                </div>
+                <script type="text/javascript">
+                    $(function() {
+                        editormd.markdownToHTML("question-view", {});
+                    });
+                </script>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <span class="label label-info question-tag" th:each="tag : ${question.tag.split('/')}">
@@ -128,7 +140,7 @@
             <hr class="col-lg-10 col-lg-10 col-sm-10 col-xs-10">
             <div class="col-lg-12 col-lg-12 col-sm-12 col-xs-12">
                 <h4>关注一下</h4>
-                <img class="img-thumbnail question-wechat" src="/img/wechat.png">
+                <img class="img-thumbnail question-wechat" src="/images/wechat.png">
             </div>
             <hr class="col-lg-10 col-lg-10 col-sm-10 col-xs-10">
             <div class="col-lg-12 col-lg-12 col-sm-12 col-xs-12">
