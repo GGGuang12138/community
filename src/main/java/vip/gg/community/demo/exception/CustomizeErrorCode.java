@@ -12,7 +12,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     COMMENT_IS_EMPTY(2006,"回复的内容不能为空呢～"),
 
     NO_LOGIN(1001,"当前未登陆，请先登陆呢～"),
-    SYS_ERROR(1002,"系统出错了呢～");
+    SYS_ERROR(1002,"系统出错了呢～"),
+    FILE_UPLOAD_FAIL(3001,"上传失败");
 
 
     private String message;

@@ -2,10 +2,15 @@ package vip.gg.community.demo.provider;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.model.PutObjectResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import vip.gg.community.demo.exception.CustomizeErrorCode;
+import vip.gg.community.demo.exception.CustomizeException;
 
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -41,8 +46,14 @@ public class OSSProvider {
         }else {
             return null;
         }
-        ossClient.putObject("coldcode", generateFileName, inputStream);
-        return generateFileName;
+        PutObjectResult coldcode = ossClient.putObject("coldcode", generateFileName, inputStream);
+        if(coldcode != null){
+            Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24);
+            URL url = ossClient.generatePresignedUrl("coldcode" ,generateFileName , expiration);
+            return url.toString();
+        }else {
+            throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
+        }
     }
 
 }

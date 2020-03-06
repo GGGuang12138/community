@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import vip.gg.community.demo.dto.FileDTO;
+import vip.gg.community.demo.exception.CustomizeErrorCode;
+import vip.gg.community.demo.exception.CustomizeException;
 import vip.gg.community.demo.provider.OSSProvider;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,15 +35,16 @@ public class FileController {
     public FileDTO upload(HttpServletRequest request){
         MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multipartHttpServletRequest.getFile("editormd-image-file");
-
         try {
-            ossProvider.upload(file.getInputStream(),file.getOriginalFilename());
+            String fileUrl = ossProvider.upload(file.getInputStream(), file.getOriginalFilename());
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setSuccess(1);
+            fileDTO.setUrl(fileUrl);
+            return fileDTO;
         } catch (IOException e) {
             e.printStackTrace();
+            throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
         }
-        FileDTO fileDTO = new FileDTO();
-        fileDTO.setSuccess(1);
-        fileDTO.setUrl("/images/wechat.png");
-        return fileDTO;
+
     }
 }
