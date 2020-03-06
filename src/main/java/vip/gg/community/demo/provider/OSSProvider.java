@@ -29,6 +29,9 @@ public class OSSProvider {
     @Value("${oss.coldcode.accessKeySecret}")
     private String secret;
 
+    @Value("${oss.coldcode.bucket-name}")
+    private String bucketname;
+
 
 
     public String upload(InputStream inputStream,String fileName){
@@ -46,10 +49,10 @@ public class OSSProvider {
         }else {
             return null;
         }
-        PutObjectResult coldcode = ossClient.putObject("coldcode", generateFileName, inputStream);
+        PutObjectResult coldcode = ossClient.putObject(bucketname, generateFileName, inputStream);
         if(coldcode != null){
-            Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24);
-            URL url = ossClient.generatePresignedUrl("coldcode" ,generateFileName , expiration);
+            Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 10);
+            URL url = ossClient.generatePresignedUrl(bucketname ,generateFileName , expiration);
             return url.toString();
         }else {
             throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);

@@ -17,8 +17,6 @@ import vip.gg.community.demo.provider.OSSProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Creat by GG
