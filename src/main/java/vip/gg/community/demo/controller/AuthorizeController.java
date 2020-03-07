@@ -1,5 +1,6 @@
 package vip.gg.community.demo.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.UUID;
  * Date on 2020/2/4  3:30 下午
  */
 @Controller
+@Slf4j
 public class AuthorizeController {
     
     @Autowired
@@ -63,6 +65,7 @@ public class AuthorizeController {
             response.addCookie(new Cookie("token",token));
         }else{
             //登陆失败，重新登陆
+            log.error("callback get github error,{}",githubUser);
         }
         return "redirect:/";
     }
