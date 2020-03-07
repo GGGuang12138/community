@@ -1,0 +1,19 @@
+2020-03-07 14:41:25.515  INFO 62725 --- [restartedMain] vip.gg.community.demo.DemoApplication    : Starting DemoApplication on GgdeMacBook-Air.local with PID 62725 (/Users/ggguang/IdeaProjects/demo/target/classes started by ggguang in /Users/ggguang/IdeaProjects/demo)
+2020-03-07 14:41:25.517  INFO 62725 --- [restartedMain] vip.gg.community.demo.DemoApplication    : No active profile set, falling back to default profiles: default
+2020-03-07 14:41:26.485  INFO 62725 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2020-03-07 14:41:26.487  INFO 62725 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-03-07 14:41:26.488  INFO 62725 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2020-03-07 14:41:26.525  INFO 62725 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-03-07 14:41:26.526  INFO 62725 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1000 ms
+2020-03-07 14:41:26.559  INFO 62725 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2020-03-07 14:41:26.577  INFO 62725 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2020-03-07 14:41:26.577  INFO 62725 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:~/community'
+2020-03-07 14:41:27.016  INFO 62725 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-07 14:41:27.060  INFO 62725 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-03-07 14:41:27.300  INFO 62725 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-03-07 14:41:27.342  INFO 62725 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2020-03-07 14:41:27.343  INFO 62725 --- [restartedMain] vip.gg.community.demo.DemoApplication    : Started DemoApplication in 2.146 seconds (JVM running for 2848.709)
+2020-03-07 14:41:27.347  INFO 62725 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-03-07 14:43:57.873  INFO 62725 --- [Thread-9] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-03-07 14:43:57.882  INFO 62725 --- [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2020-03-07 14:43:57.913  INFO 62725 --- [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
