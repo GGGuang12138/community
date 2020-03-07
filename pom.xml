@@ -76,6 +76,11 @@
             <version>2.1.1</version>
         </dependency>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.19</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
@@ -103,6 +108,11 @@
                         <artifactId>h2</artifactId>
                         <version>1.4.200</version>
                     </dependency>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.19</version>
+                    </dependency>
                 </dependencies>
             </plugin>
             <plugin>
@@ -110,15 +120,20 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.2.2</version>
                 <configuration>
-                    <url>jdbc:h2:~/community</url>
-                    <user>123</user>
-                    <password>123</password>
+                    <url>jdbc:mysql://rm-2zehk1o6u35d2g8nh125010.mysql.rds.aliyuncs.com/community</url>
+                    <user>gg</user>
+                    <password>Ggbabad1shujuku</password>
                 </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>com.h2database</groupId>
                         <artifactId>h2</artifactId>
                         <version>1.4.200</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.19</version>
                     </dependency>
                 </dependencies>
             </plugin>
