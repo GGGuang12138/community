@@ -78,6 +78,7 @@ public class PublishController {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             model.addAttribute("error", "用户未登陆");
+            return "publish";
         }
         Question question = new Question();
         question.setTitle(title);
