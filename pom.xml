@@ -120,9 +120,9 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.2.2</version>
                 <configuration>
-                    <url>jdbc:mysql://rm-2zehk1o6u35d2g8nh125010.mysql.rds.aliyuncs.com/community</url>
-                    <user>gg</user>
-                    <password>Ggbabad1shujuku</password>
+                    <url>jdbc:h2:~/community</url>
+                    <user>123</user>
+                    <password>123</password>
                 </configuration>
                 <dependencies>
                     <dependency>
