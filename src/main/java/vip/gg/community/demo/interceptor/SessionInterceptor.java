@@ -22,6 +22,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Autowired(required = false)
     private UserMapper userMapper;//默认要求依赖对象必须存在
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
+ * 通过@ControllerAdvice注解实现错误处理
  * Creat by GG
  * Date on 2020/2/21  3:24 下午
  */
@@ -47,12 +48,12 @@ public class CustomizeExceptionHandler {
             return null;
         }else {
             //错误页面跳转
-            if(e instanceof CustomizeException){
+            if(e instanceof CustomizeException){ //抛出自己定义的错误
                 model.addAttribute("message",e.getMessage());
-            }else {
+            }else { //默认的错误
                 model.addAttribute("message","过会儿再试呗～");
             }
-            return new ModelAndView("error");
+            return new ModelAndView("error"); //跳转到error页面
         }
 
     }

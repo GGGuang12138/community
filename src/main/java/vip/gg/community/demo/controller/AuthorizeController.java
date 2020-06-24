@@ -72,7 +72,7 @@ public class AuthorizeController {
     }
 
     @GetMapping("/logout")
-    public String loyout(HttpServletRequest request,
+    public String logout(HttpServletRequest request,
                          HttpServletResponse response){
         request.getSession().removeAttribute("user");
         Cookie cookie = new Cookie("token",null);

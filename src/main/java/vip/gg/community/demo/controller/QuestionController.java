@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import vip.gg.community.demo.dto.CommentDTO;
 import vip.gg.community.demo.dto.QuestionDTO;
 import vip.gg.community.demo.enums.CommentTypeEnum;
+import vip.gg.community.demo.exception.CustomizeException;
 import vip.gg.community.demo.service.CommentService;
 import vip.gg.community.demo.service.QuestionService;
 
 import java.util.List;
+
+import static vip.gg.community.demo.exception.CustomizeErrorCode.QUESTION_NOT_FOUND;
 
 /**
  * Creat by GG
@@ -31,6 +34,9 @@ public class QuestionController {
                            Model model
     ){
         QuestionDTO questionDTO = questionService.getById(id);
+        if (questionDTO == null) {
+            throw new CustomizeException(QUESTION_NOT_FOUND);
+        }
         List<QuestionDTO> relatedQuestions = questionService.selectRelated(questionDTO);
         List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         questionService.incView(id);

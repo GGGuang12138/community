@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
+ * 系统错误处理
  * Creat by GG
  * Date on 2020/2/21  4:27 下午
  */
