@@ -1,46 +1,57 @@
 ## 基于Spring Boot的问答社区网站
 
+## 快速运行
+1. 安装必备工具  
+JDK，Maven
+2. 克隆代码到本地  
+3. 创建数据库
+4. 运行项目  
+```sh
+java -jar target/community-0.0.1-SNAPSHOT.jar
+```
+
+5. 访问项目
+```
+http://localhost:8887
+```
+
 ## 资料
-[Spring文档](https://spring.io/guides)
+[Spring Boot介绍](https://spring.io/projects/spring-boot/)
+
+[Spring Boot开发文档](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/)
+
+[Spring Boot整合Mybatis](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
+
+[Spring Security参考博客](https://www.pomit.cn/blog.html?catory=SpringBoot%u4E13%u9898#!)
 
 [Github OAuth](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
 
-[Github 登陆](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
+[thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#a-website-for-a-grocery)
 
+[bootstrap](https://v3.bootcss.com/components/)
 
-## 工具
+[flyway数据库版本管理工具](https://flywaydb.org/documentation/)
 
-git
+[项目来源](https://github.com/codedrinker/community)
+## 技术栈
 
-bootstrap
+版本控制 git
 
-H2
+界面 bootstrap、thymeleaf
 
-Flyway
+持久层 H2/SQL、MyBatis、Flyway
 
-Lombok
+安全 Spring Security
 
-
-
-
+其他 lombok、MyBatis generate
 
 ## 脚本
-```sql
-    create table USER
-        (
-        	ID INT auto_increment,
-        	ACCOUNT_ID VARCHAR(100),
-        	NAME VARCHAR(50),
-        	TOKEN CHAR(36),
-        	GMT_CREATE BIGINT,
-        	GMT_MODIFIED BIGINT,
-        	constraint USER_PK
-        		primary key (ID)
-        );
-```
-```sql
+[数据库创建](https://github.com/GGGuang12138/community/tree/master/src/main/resources/db/migration)
 
+flyway
+```
+mvn flyway:migrate
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```
 
- 
 
