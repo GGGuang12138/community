@@ -39,7 +39,7 @@ http://localhost:8887
 
 界面 bootstrap、thymeleaf
 
-持久层 H2/SQL、MyBatis、Flyway
+持久层 H2/MySQL、MyBatis、Flyway
 
 安全 Spring Security
 
