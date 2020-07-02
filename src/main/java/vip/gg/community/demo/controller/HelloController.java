@@ -30,9 +30,4 @@ public class HelloController {
         model.addAttribute("pagination",pagination);
         return "index";
     }
-
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
-    }
 }

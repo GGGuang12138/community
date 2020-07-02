@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vip.gg.community.demo.dto.AccessTokenDTO;
 import vip.gg.community.demo.dto.GithubUser;
+import vip.gg.community.demo.exception.CustomizeException;
 import vip.gg.community.demo.mapper.UserMapper;
 import vip.gg.community.demo.model.User;
 import vip.gg.community.demo.provider.GithubProvider;
@@ -17,6 +18,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
+
+import static vip.gg.community.demo.exception.CustomizeErrorCode.LOGIN_FAIL;
+import static vip.gg.community.demo.exception.CustomizeErrorCode.QUESTION_NOT_FOUND;
 
 /**
  *
@@ -67,7 +71,7 @@ public class AuthorizeController {
         }else{
             //登陆失败，重新登陆
             log.error("callback get github error,{}",githubUser);
-            return "redirect:/";
+            throw new CustomizeException(LOGIN_FAIL);
         }
     }
 
