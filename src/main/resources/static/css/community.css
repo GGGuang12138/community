@@ -103,3 +103,16 @@ body{
     margin-bottom: 20px;
     text-align: center;
 }
+.login_margin{
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+.login_padding{
+    margin-left: 40px;
+    margin-right: 40px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
