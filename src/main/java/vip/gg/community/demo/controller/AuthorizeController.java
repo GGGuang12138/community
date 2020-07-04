@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vip.gg.community.demo.dto.AccessTokenDTO;
 import vip.gg.community.demo.dto.GithubUser;
-import vip.gg.community.demo.mapper.UserMapper;
-import vip.gg.community.demo.model.User;
+import vip.gg.community.demo.model.UserAuth;
 import vip.gg.community.demo.provider.GithubProvider;
 import vip.gg.community.demo.service.Userservice;
 
@@ -53,7 +52,7 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
         if(githubUser!=null && githubUser.getId() != null){
-            User user = new User();
+            UserAuth user = new UserAuth();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
             user.setName(githubUser.getName());

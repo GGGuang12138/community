@@ -6,9 +6,9 @@
 <generatorConfiguration>
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
-        <jdbcConnection driverClass="org.h2.Driver"
-                        connectionURL="jdbc:h2:~/community"
-                        userId="123"
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/community"
+                        userId="root"
                         password="123">
         </jdbcConnection>
 
@@ -29,9 +29,10 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="user" domainObjectName="User" ></table>
+        <table tableName="user_auth" domainObjectName="UserAuth" ></table>
         <table tableName="question" domainObjectName="Question" ></table>
         <table tableName="comment" domainObjectName="Comment" ></table>
+        <table tableName="user_info" domainObjectName="UserInfo" ></table>
 
     </context>
 </generatorConfiguration>

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import vip.gg.community.demo.dto.PaginationDTO;
-import vip.gg.community.demo.model.User;
+import vip.gg.community.demo.model.UserInfo;
 import vip.gg.community.demo.service.QuestionService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +31,7 @@ public class ProfileController {
             @RequestParam(name = "size",defaultValue = "5") Integer size
     ){
 
-        User user = (User) request.getSession().getAttribute("user");
+        UserInfo user = (UserInfo) request.getSession().getAttribute("user");
         if (user == null){
             return "redirect:/";
         }

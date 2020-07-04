@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import vip.gg.community.demo.cache.TagCache;
 import vip.gg.community.demo.dto.QuestionDTO;
 import vip.gg.community.demo.model.Question;
-import vip.gg.community.demo.model.User;
+import vip.gg.community.demo.model.UserAuth;
 import vip.gg.community.demo.service.QuestionService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,7 +75,7 @@ public class PublishController {
             model.addAttribute("error",invalid + "这个标签没收录呢～");
             return "publish";
         }
-        User user = (User) request.getSession().getAttribute("user");
+        UserAuth user = (UserAuth) request.getSession().getAttribute("user");
         if (user == null) {
             model.addAttribute("error", "用户未登陆");
             return "publish";

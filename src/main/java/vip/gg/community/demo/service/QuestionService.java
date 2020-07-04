@@ -5,18 +5,17 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vip.gg.community.demo.dto.CommentDTO;
 import vip.gg.community.demo.dto.PaginationDTO;
 import vip.gg.community.demo.dto.QuestionDTO;
 import vip.gg.community.demo.exception.CustomizeErrorCode;
 import vip.gg.community.demo.exception.CustomizeException;
-import vip.gg.community.demo.mapper.CommentMapper;
 import vip.gg.community.demo.mapper.QuestionExMapper;
 import vip.gg.community.demo.mapper.QuestionMapper;
-import vip.gg.community.demo.mapper.UserMapper;
+import vip.gg.community.demo.mapper.UserAuthMapper;
+import vip.gg.community.demo.mapper.UserInfoMapper;
 import vip.gg.community.demo.model.Question;
 import vip.gg.community.demo.model.QuestionExample;
-import vip.gg.community.demo.model.User;
+import vip.gg.community.demo.model.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class QuestionService {
     private QuestionMapper questionMapper;
 
     @Autowired(required = false)
-    private UserMapper userMapper;
+    private UserInfoMapper userMapper;
     public PaginationDTO list(Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         //往pagination里放东西
@@ -58,10 +57,10 @@ public class QuestionService {
         List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for(Question question :questions){
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
+            UserInfo user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
-            questionDTO.setUser(user);
+            questionDTO.setUserInfo(user);
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestions(questionDTOList);
@@ -93,10 +92,10 @@ public class QuestionService {
         List<Question> questions = questionMapper.selectByExampleWithRowbounds(example,new RowBounds(offset,size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for(Question question :questions){
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
+            UserInfo user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
-            questionDTO.setUser(user);
+            questionDTO.setUserInfo(user);
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestions(questionDTOList);
@@ -111,8 +110,8 @@ public class QuestionService {
         }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
-        User user = userMapper.selectByPrimaryKey(question.getCreator());
-        questionDTO.setUser(user);
+        UserInfo user = userMapper.selectByPrimaryKey(question.getCreator());
+        questionDTO.setUserInfo(user);
         return questionDTO;
     }
 

@@ -1,7 +1,7 @@
 package vip.gg.community.demo.dto;
 
 import lombok.Data;
-import vip.gg.community.demo.model.User;
+import vip.gg.community.demo.model.UserInfo;
 
 /**
  * Creat by GG
@@ -18,5 +18,5 @@ public class QuestionDTO {
     private Long creator;
     private Integer viewCount;
     private Integer commentCount;
-    private User user;
+    private UserInfo userInfo;
 }

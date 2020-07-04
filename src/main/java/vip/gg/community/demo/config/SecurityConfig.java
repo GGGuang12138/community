@@ -20,11 +20,11 @@ import vip.gg.community.demo.service.LoginService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    LoginService loginService;
+    //@Autowired
+    //LoginService loginService;
 
-    @Autowired
-    CustomizeAuthenticationProvider customizeAuthenticationProvider;
+    //@Autowired
+    //CustomizeAuthenticationProvider customizeAuthenticationProvider;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -36,11 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //开启安全策略 链式编程(定制安全机制)
         http.authorizeRequests()
                 .antMatchers("/","/login","/question/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                .anyRequest().authenticated();
+
                 //  增加token，取消session
                // .addFilter(new TokenLoginFilter(authenticationManager()))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+               // .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         //启动默认登陆页面
         http.formLogin().loginPage("/login").loginProcessingUrl("/login").successHandler(new SuccessAuthenticationHandler());
@@ -50,7 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(loginService).passwordEncoder(new BCryptPasswordEncoder());
+        //auth.userDetailsService(loginService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.authenticationProvider(lo)
     }
 
 }

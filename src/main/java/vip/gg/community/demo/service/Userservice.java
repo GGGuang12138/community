@@ -2,9 +2,10 @@ package vip.gg.community.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vip.gg.community.demo.mapper.UserMapper;
-import vip.gg.community.demo.model.User;
-import vip.gg.community.demo.model.UserExample;
+import vip.gg.community.demo.mapper.UserAuthMapper;
+import vip.gg.community.demo.model.UserAuth;
+import vip.gg.community.demo.model.UserAuthExample;
+import vip.gg.community.demo.model.UserInfo;
 
 import java.util.List;
 
@@ -16,12 +17,12 @@ import java.util.List;
 public class Userservice {
 
     @Autowired(required = false)
-    private UserMapper userMapper;
+    private UserAuthMapper userMapper;
 
-    public void update(User user) {
-        UserExample userExample = new UserExample();
+    public void update(UserAuth user) {
+        UserAuthExample userExample = new UserAuthExample();
         userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
-        List<User> dbusers = userMapper.selectByExample(userExample);
+        List<UserAuth> dbusers = userMapper.selectByExample(userExample);
         if(dbusers.size() == 0){
             //插入
             user.setGmtCreate(System.currentTimeMillis());
@@ -29,15 +30,15 @@ public class Userservice {
             userMapper.insert(user);
         }else {
             //更新user
-            User dbuser = dbusers.get(0);
+            UserAuth dbuser = dbusers.get(0);
 
-            User updateuser =new User();
+            UserAuth updateuser =new UserAuth();
             updateuser.setToken(user.getToken());
             updateuser.setName(user.getName());
             updateuser.setAccountId(user.getAccountId());
             updateuser.setAvatarUrl(user.getAvatarUrl());
 
-            UserExample example = new UserExample();
+            UserAuthExample example = new UserAuthExample();
             example.createCriteria().andIdEqualTo(dbuser.getId());
             userMapper.updateByExampleSelective(updateuser, example);
         }
