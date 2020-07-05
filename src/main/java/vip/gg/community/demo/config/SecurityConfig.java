@@ -23,8 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //@Autowired
     //LoginService loginService;
 
-    //@Autowired
-    //CustomizeAuthenticationProvider customizeAuthenticationProvider;
+    @Autowired
+    CustomizeAuthenticationProvider customizeAuthenticationProvider;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //auth.userDetailsService(loginService).passwordEncoder(new BCryptPasswordEncoder());
-        auth.authenticationProvider(lo)
+        auth.authenticationProvider(customizeAuthenticationProvider);
     }
 
 }

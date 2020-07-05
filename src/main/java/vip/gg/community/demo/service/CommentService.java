@@ -34,7 +34,7 @@ public class CommentService {
     private QuestionExMapper questionExMapper;
 
     @Autowired(required = false)
-    private UserMapper userMapper;
+    private UserInfoMapper userMapper;
 
     @Autowired(required = false)
     private CommentExtMapper commentExtMapper;
@@ -89,11 +89,11 @@ public class CommentService {
         userIds.addAll(commentators);
 
         //根据去重id找到user 并转化为Map
-        UserExample userExample = new UserExample();
+        UserInfoExample userExample = new UserInfoExample();
         userExample.createCriteria()
                 .andIdIn(userIds);
-        List<User> users = userMapper.selectByExample(userExample);
-        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
+        List<UserInfo> users = userMapper.selectByExample(userExample);
+        Map<Long, UserInfo> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
 
         //转换comment 为 commentDTO
         List<CommentDTO> commentDTOS = comments.stream().map(comment -> {

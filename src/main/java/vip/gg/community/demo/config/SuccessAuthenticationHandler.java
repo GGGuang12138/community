@@ -15,9 +15,10 @@ import java.io.IOException;
 public class SuccessAuthenticationHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        String username = authentication.getAuthorities().toString();
-        User user = new User();
-        user.setName(username);
-        request.getSession().setAttribute("user",user);
+//        String username = authentication.getAuthorities().toString();
+//        User user = new User();
+//        user.setName(username);
+//        request.getSession().setAttribute("user",user);
+        System.out.println("success");
     }
 }
