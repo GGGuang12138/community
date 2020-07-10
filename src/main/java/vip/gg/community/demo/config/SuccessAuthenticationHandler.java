@@ -2,6 +2,9 @@ package vip.gg.community.demo.config;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,13 @@ public class SuccessAuthenticationHandler extends SavedRequestAwareAuthenticatio
 //        User user = new User();
 //        user.setName(username);
 //        request.getSession().setAttribute("user",user);
+
+
         System.out.println("success");
+//        RequestCache cache = new HttpSessionRequestCache();
+//        SavedRequest savedRequest = cache.getRequest(request,response);
+//
+//
+//        response.sendRedirect(savedRequest.getRedirectUrl());
     }
 }

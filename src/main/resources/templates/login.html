@@ -33,7 +33,7 @@
             <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form layui-form-pane">
-                        <form method="post">
+                        <form method="post" action="/login">
                             <div class="layui-form-item">
                                 <label for="L_email" class="layui-form-label">邮箱</label>
                                 <div class="layui-input-inline">
@@ -63,7 +63,7 @@
                             </div>
                             <div class="layui-form-item fly-form-app">
                                 <span>或者使用其他账号登入</span>
-                                <a th:href="@{https://github.com/login/oauth/authorize(client_id='f69d16668d64167ff6c4',redict_uri=${#httpServletRequest.getRequestURL()+'/callback'},scope='user',state=1)}" class="tt icon-git" style="padding: 3px" title="Github登入"></a>
+                                <a th:href="@{https://github.com/login/oauth/authorize(client_id='7338eb294eeb410a02ef',redict_uri=${#httpServletRequest.getRequestURL()+'/callback'},scope='user',state=1)}" class="tt icon-git" style="padding: 3px" title="Github登入"></a>
                                 <a href="" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>
                                 <a href="" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>
                             </div>

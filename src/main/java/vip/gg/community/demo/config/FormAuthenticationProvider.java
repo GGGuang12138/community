@@ -22,11 +22,11 @@ import java.util.List;
  * Date on 2020/6/13  10:52 上午
  */
 @Component
-public class CustomizeAuthenticationProvider implements AuthenticationProvider {
+public class FormAuthenticationProvider implements AuthenticationProvider {
 
 
     @Autowired(required = false)
-    UserAuthMapper userMapper;
+    UserAuthMapper userAuthMapper;
 
     @Autowired
     HttpServletRequest request;
@@ -36,18 +36,18 @@ public class CustomizeAuthenticationProvider implements AuthenticationProvider {
         //数据库查询用户
         String username = authentication.getPrincipal().toString();
         UserAuthExample userExample = new UserAuthExample();
-        userExample.createCriteria().andNameEqualTo(username);
-        List<UserAuth> users = userMapper.selectByExample(userExample);
+        userExample.createCriteria().andAccountIdEqualTo(username);
+        List<UserAuth> users = userAuthMapper.selectByExample(userExample);
 
         if (users == null) {
             throw new BadCredentialsException("查无此用户");
         }
         UserAuth user = users.get(0);
-        if (user.getName() != null && user.getAccountId().equals(authentication.getCredentials())) {
+        if (user.getName() != null && user.getPassword().equals(authentication.getCredentials())) {
                 request.getSession().setAttribute("user",user);
             Collection<? extends GrantedAuthority> authorities = AuthorityUtils.NO_AUTHORITIES;
 
-            return new UsernamePasswordAuthenticationToken(user.getName(), user.getAccountId(), authorities);
+            return new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword(), authorities);
         } else {
             throw new BadCredentialsException("用户名或密码错误。");
         }
@@ -55,6 +55,6 @@ public class CustomizeAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return false;
+        return  UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }
