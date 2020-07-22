@@ -35,7 +35,6 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         CustomizeAuthenticationToken customizeAuthenticationToken = (CustomizeAuthenticationToken) authentication;
         String token = customizeAuthenticationToken.getPrincipal().toString();
-
         UserAuthExample userExample =  new UserAuthExample();
         userExample.createCriteria().andTokenEqualTo(token);
         List<UserAuth> users = userAuthMapper.selectByExample(userExample);
@@ -43,7 +42,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("查无此用户");
         }
         UserAuth user = users.get(0);
-        if (user.getName() != null && user.getPassword().equals(authentication.getCredentials())) {
+        if (user.getName() != null) {
             request.getSession().setAttribute("user",user);
             System.out.println("token");
             Collection<? extends GrantedAuthority> authorities = AuthorityUtils.NO_AUTHORITIES;
@@ -56,6 +55,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
+//        Boolean flag = authentication.equals(CustomizeAuthenticationToken.class);
         return CustomizeAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }

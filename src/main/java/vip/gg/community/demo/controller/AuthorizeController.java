@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vip.gg.community.demo.dto.AccessTokenDTO;
 import vip.gg.community.demo.dto.GithubUser;
@@ -62,7 +63,7 @@ public class AuthorizeController {
             user.setAvatarUrl(githubUser.getAvatarUrl());
             userService.update(user);
             response.addCookie(new Cookie("token",token));
-            return "redirect:/";
+            return "redirect:/githubLogin";
         }else{
             //登陆失败，重新登陆
             log.error("callback get github error,{}",githubUser);
@@ -78,7 +79,11 @@ public class AuthorizeController {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
         return "redirect:/";
+    }
 
+    @RequestMapping("/githubLogin")
+    public String githubLogin(){
+        return "redirect:/";
     }
 
 }

@@ -32,12 +32,16 @@ public class CustomizeErrorController implements ErrorController {
         HttpStatus status = getStatus(request);
 
         if(status.is4xxClientError()){
-            model.addAttribute("message","客户端访问有问题欸～");
+            if (status.value() == 401){
+                model.addAttribute("message","用户名或密码不对,请重新登陆～");
+            }else{
+                model.addAttribute("message","客户端访问有问题欸～");
+            }
         }
         if (status.is5xxServerError()){
             model.addAttribute("message","服务端出问题了，过会再来呗～");
-
         }
+
 
         return new ModelAndView("error");
     }

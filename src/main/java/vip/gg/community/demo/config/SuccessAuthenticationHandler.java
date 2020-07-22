@@ -22,13 +22,12 @@ public class SuccessAuthenticationHandler extends SavedRequestAwareAuthenticatio
 //        User user = new User();
 //        user.setName(username);
 //        request.getSession().setAttribute("user",user);
-
-
-        System.out.println("success");
-//        RequestCache cache = new HttpSessionRequestCache();
-//        SavedRequest savedRequest = cache.getRequest(request,response);
-//
-//
-//        response.sendRedirect(savedRequest.getRedirectUrl());
+        SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
+        if (savedRequest == null) {
+            super.onAuthenticationSuccess(request, response, authentication);
+            return;
+        }
+        String targetUrl = savedRequest.getRedirectUrl();
+        getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 }
