@@ -31,6 +31,7 @@ http://localhost:8887
 [bootstrap](https://v3.bootcss.com/components/)
 
 [flyway数据库版本管理工具](https://flywaydb.org/documentation/)
+[参考博客1](https://www.jianshu.com/p/b321dafdfe83)
 
 [项目来源](https://github.com/codedrinker/community)
 ## 技术栈
