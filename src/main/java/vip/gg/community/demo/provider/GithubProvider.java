@@ -5,6 +5,8 @@ import okhttp3.*;
 import org.springframework.stereotype.Component;
 import vip.gg.community.demo.dto.AccessTokenDTO;
 import vip.gg.community.demo.dto.GithubUser;
+import vip.gg.community.demo.exception.CustomizeErrorCode;
+import vip.gg.community.demo.exception.CustomizeException;
 
 import java.io.IOException;
 
@@ -45,7 +47,8 @@ public class GithubProvider {
             return githubUser;
         } catch (IOException e) {
             e.printStackTrace();
+            throw new CustomizeException(CustomizeErrorCode.GITHUB_AUTH_FAIL);
         }
-        return null;
+
     }
 }

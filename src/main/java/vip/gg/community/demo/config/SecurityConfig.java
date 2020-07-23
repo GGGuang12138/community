@@ -28,6 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     TokenAuthenticationProvider tokenAuthenticationProvider;
 
+    @Autowired
+    SuccessAuthenticationHandler successAuthenticationHandler;
+
+    @Autowired
+    FailAuthenticationHandler failAuthenticationHandler;
+
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -50,11 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //  增加token，取消session
                // .addFilter(new TokenLoginFilter(authenticationManager())).sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //Github的token认证
-        http.addFilterBefore(new TokenAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         //启动默认登陆页面
         http.formLogin().loginPage("/login").loginProcessingUrl("/login")
-                .successHandler(new SuccessAuthenticationHandler())
-                .failureHandler(new FailAuthenticationHandler());
+                .successHandler(successAuthenticationHandler)
+                .failureHandler(failAuthenticationHandler);
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login").invalidateHttpSession(true).permitAll();
         //关闭csrf
         http.csrf().disable();
@@ -64,10 +70,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //auth.userDetailsService(loginService).passwordEncoder(new BCryptPasswordEncoder());
         auth.authenticationProvider(formAuthenticationProvider).authenticationProvider(tokenAuthenticationProvider);
     }
-//    @Bean
-//    public TokenAuthenticationFilter tokenAuthenticationFilter() {
-//        TokenAuthenticationFilter filter = new TokenAuthenticationFilter();
-//        filter.setAuthenticationManager(authenticationManager);
-//        return filter;
-//    }
+    @Bean
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+        TokenAuthenticationFilter filter = new TokenAuthenticationFilter(authenticationManager);
+        filter.setAuthenticationSuccessHandler(successAuthenticationHandler);
+        filter.setAuthenticationFailureHandler(failAuthenticationHandler);
+        return filter;
+    }
 }

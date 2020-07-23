@@ -5,6 +5,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import java.io.IOException;
  * Creat by GG
  * Date on 2020/6/19  11:36 上午
  */
+@Component
 public class SuccessAuthenticationHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
@@ -22,6 +24,7 @@ public class SuccessAuthenticationHandler extends SavedRequestAwareAuthenticatio
 //        User user = new User();
 //        user.setName(username);
 //        request.getSession().setAttribute("user",user);
+        System.out.println("success");
         SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
         if (savedRequest == null) {
             super.onAuthenticationSuccess(request, response, authentication);

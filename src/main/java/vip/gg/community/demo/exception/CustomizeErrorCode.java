@@ -13,6 +13,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
 
     NO_LOGIN(1001,"当前未登陆，请先登陆呢～"),
     SYS_ERROR(1002,"系统出错了呢～"),
+    GITHUB_AUTH_FAIL(1003,"github授权失败，请上梯子或等会再来～"),
     FILE_UPLOAD_FAIL(3001,"上传失败");
 
 

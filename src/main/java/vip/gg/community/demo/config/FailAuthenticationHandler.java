@@ -6,6 +6,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
 import vip.gg.community.demo.exception.CustomizeErrorCode;
 import vip.gg.community.demo.exception.CustomizeException;
 
@@ -19,6 +20,7 @@ import java.io.IOException;
  * Creat by GG
  * Date on 2020/7/19  10:32 上午
  */
+@Component
 public class FailAuthenticationHandler extends SimpleUrlAuthenticationFailureHandler {
 
     public FailAuthenticationHandler() {
@@ -26,6 +28,7 @@ public class FailAuthenticationHandler extends SimpleUrlAuthenticationFailureHan
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+       System.out.println("fail");
         response.sendError(HttpStatus.UNAUTHORIZED.value(),
                 HttpStatus.UNAUTHORIZED.getReasonPhrase());
 
