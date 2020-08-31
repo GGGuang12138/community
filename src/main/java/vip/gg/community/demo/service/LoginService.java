@@ -24,6 +24,8 @@ public class LoginService implements UserDetailsService {
     @Autowired(required = false)
     UserAuthMapper userMapper;
 
+
+
     @Autowired
     HttpServletRequest request;
 
