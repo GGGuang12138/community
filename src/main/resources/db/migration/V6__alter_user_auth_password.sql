@@ -1,0 +1,1 @@
+alter table user_auth modify password char(100) null;
