@@ -12,7 +12,7 @@ java -jar target/community-0.0.1-SNAPSHOT.jar
 
 5. 访问项目
 ```
-http://localhost:8080
+http://localhost:8887
 ```
 
 ## 资料
