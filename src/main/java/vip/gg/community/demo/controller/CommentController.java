@@ -10,6 +10,7 @@ import vip.gg.community.demo.dto.ResultDTO;
 import vip.gg.community.demo.enums.CommentTypeEnum;
 import vip.gg.community.demo.exception.CustomizeErrorCode;
 import vip.gg.community.demo.model.Comment;
+import vip.gg.community.demo.model.UserAuth;
 import vip.gg.community.demo.model.UserInfo;
 import vip.gg.community.demo.service.CommentService;
 
@@ -32,7 +33,7 @@ public class CommentController {
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
                        HttpServletRequest request){
 
-        UserInfo user = (UserInfo) request.getSession().getAttribute("user");
+        UserAuth user =  (UserAuth)request.getSession().getAttribute("user");
         if (user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }

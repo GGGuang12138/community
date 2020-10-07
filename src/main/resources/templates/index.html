@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/community.css"/>
     <script src="js/jquery-3.4.1.min.js" ></script>
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <script type="application/javascript">
     window.onload = function () {
@@ -29,14 +30,13 @@
                 <div class= "media-left">
                     <a href="#">
                         <img class="media-object media-community img-rounded"
-                             th:src="${question.user.avatarUrl}">
+                             th:src="${question.userInfo.avatarUrl}">
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${question.description}"></span><br>
                     <span class="text-desc"><span th:text="${question.commentCount}"></span> 个回复 • <span th:text="${question.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
                 </div>
             </div>
@@ -52,7 +52,9 @@
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
-                    <li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}? 'active' : '' "><a th:text="${page}" th:href="@{/(page=${page})}"></a></li>
+                    <li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}? 'active' : '' ">
+                        <a th:text="${page}" th:href="@{/(page=${page},search=${search})}"></a>
+                    </li>
 
                     <li th:if="${pagination.showNext}">
                         <a th:href="@{/(page=${pagination.page}+1)}" aria-label="Next">
@@ -68,11 +70,13 @@
             </nav>
         </div>
         <div class="col-lg-3 col-lg-12 col-sm-12 col-xs-12">
+            <h3>更多内容</h3>
+            <img class="img-thumbnail question-wechat" src="/images/wechat.png">
             <h3>热门话题</h3>
         </div>
     </div>
 </div>
-
-</body>
 <div th:insert="foot :: footer"></div>
+</body>
+
 </html>

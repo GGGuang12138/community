@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**","/js/**","/fonts/**");//web登陆时取消静态资源的拦截
+        web.ignoring().antMatchers("/css/**","/js/**","/fonts/**","/images/**");//web登陆时取消静态资源的拦截
     }
 
     @Override
@@ -64,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login").invalidateHttpSession(true).permitAll();
         //关闭csrf
         http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

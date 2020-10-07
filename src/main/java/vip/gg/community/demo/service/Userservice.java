@@ -19,6 +19,9 @@ public class Userservice {
     @Autowired(required = false)
     private UserAuthMapper userMapper;
 
+    @Autowired(required = false)
+    private LoginService loginService;
+
     public void update(UserAuth user) {
         UserAuthExample userExample = new UserAuthExample();
         userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
@@ -27,6 +30,8 @@ public class Userservice {
             //插入
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            Long userId = loginService.infoSyn(user);
+            user.setUserId(userId);
             userMapper.insert(user);
         }else {
             //更新user
@@ -38,6 +43,7 @@ public class Userservice {
             updateuser.setAccountId(user.getAccountId());
             updateuser.setAvatarUrl(user.getAvatarUrl());
 
+            loginService.infoSyn(updateuser);
             UserAuthExample example = new UserAuthExample();
             example.createCriteria().andIdEqualTo(dbuser.getId());
             userMapper.updateByExampleSelective(updateuser, example);

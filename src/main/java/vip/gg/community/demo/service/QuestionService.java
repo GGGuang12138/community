@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vip.gg.community.demo.dto.PaginationDTO;
 import vip.gg.community.demo.dto.QuestionDTO;
+import vip.gg.community.demo.dto.QuestionQueryDTO;
 import vip.gg.community.demo.exception.CustomizeErrorCode;
 import vip.gg.community.demo.exception.CustomizeException;
 import vip.gg.community.demo.mapper.QuestionExMapper;
@@ -17,7 +18,9 @@ import vip.gg.community.demo.model.Question;
 import vip.gg.community.demo.model.QuestionExample;
 import vip.gg.community.demo.model.UserInfo;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,14 +37,23 @@ public class QuestionService {
     @Autowired(required = false)
     private QuestionMapper questionMapper;
 
+
     @Autowired(required = false)
     private UserInfoMapper userMapper;
-    public PaginationDTO list(Integer page, Integer size) {
+
+    public PaginationDTO list(String search, Integer page, Integer size) {
+        if (StringUtils.isNotBlank(search)){
+            search = StringUtils.replace(search," ","|");
+        }
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+
         PaginationDTO paginationDTO = new PaginationDTO();
         //往pagination里放东西
-        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
+        Integer totalCount = questionExMapper.countBySearch(questionQueryDTO);
         paginationDTO.setPagination(totalCount, page, size);
-        Integer totalPage =paginationDTO.getTotalPage();
+
+        Integer totalPage = paginationDTO.getTotalPage();
         //判断page
         if(page<1){
             page = 1;
@@ -51,10 +63,12 @@ public class QuestionService {
         }
         //往pagination里放question
         //size*(page-1)
-        Integer offset = size * (page-1);
-        QuestionExample questionExample = new QuestionExample();
-        questionExample.setOrderByClause("gmt_create desc");
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
+        Integer offset = page < 1 ? 0: size * (page-1);
+
+        questionQueryDTO.setPage(offset);
+        questionQueryDTO.setSize(size);
+        List<Question> questions = questionExMapper.selectBySearch(questionQueryDTO);
+
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for(Question question :questions){
             UserInfo user = userMapper.selectByPrimaryKey(question.getCreator());

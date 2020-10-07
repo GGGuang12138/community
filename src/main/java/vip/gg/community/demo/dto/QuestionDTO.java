@@ -1,6 +1,7 @@
 package vip.gg.community.demo.dto;
 
 import lombok.Data;
+import vip.gg.community.demo.model.UserAuth;
 import vip.gg.community.demo.model.UserInfo;
 
 /**

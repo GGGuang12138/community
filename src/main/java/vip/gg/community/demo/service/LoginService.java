@@ -7,8 +7,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vip.gg.community.demo.mapper.UserAuthMapper;
+import vip.gg.community.demo.mapper.UserInfoMapper;
 import vip.gg.community.demo.model.UserAuth;
 import vip.gg.community.demo.model.UserAuthExample;
+import vip.gg.community.demo.model.UserInfo;
+import vip.gg.community.demo.model.UserInfoExample;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -19,30 +22,37 @@ import java.util.List;
  * Date on 2020/6/9  11:36 上午
  */
 @Service
-public class LoginService implements UserDetailsService {
+public class LoginService {
 
     @Autowired(required = false)
-    UserAuthMapper userMapper;
+    UserAuthMapper userAuthMapper;
 
+    @Autowired(required = false)
+    UserInfoMapper userInfoMapper;
 
-
-    @Autowired
-    HttpServletRequest request;
-
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserAuthExample userExample = new UserAuthExample();
-        userExample.createCriteria().andNameEqualTo(s);
-        List<UserAuth> users = userMapper.selectByExample(userExample);
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("user"));
-        if(users.size() != 0){
-            UserAuth user = users.get(0);
-            //request.getSession().setAttribute("user",user);//没有验证就返回用户名字
-            return new org.springframework.security.core.userdetails.User(user.getName(),user.getAccountId(),authorities);
+    public Long infoSyn(UserAuth user){
+        UserInfo userInfo = new UserInfo();
+        userInfo.setName(user.getName());
+        userInfo.setAvatarUrl(user.getAvatarUrl());
+        userInfo.setGmtCreate(user.getGmtCreate());
+        userInfo.setGmtModified(user.getGmtModified());
+        if (user.getAuthType() == "github" && user.getBio() != null){
+            userInfo.setSign(user.getBio());
         }
-        else {
-            throw new UsernameNotFoundException("用户名不存在！");
+        //信息同步到UserInfo表
+        if (user.getUserId() != null){
+            userInfo.setId(user.getUserId());
+            userInfoMapper.updateByPrimaryKey(userInfo);
+        }else{
+            userInfoMapper.insert(userInfo);
+            UserInfoExample userExample = new UserInfoExample();
+            userExample.createCriteria().andNameEqualTo(user.getName());
+            List<UserInfo> users = userInfoMapper.selectByExample(userExample);
+            Long result = users.get(0).getId();
+            return result;
         }
+        return user.getUserId();
+
     }
+
 }

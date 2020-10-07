@@ -1,5 +1,7 @@
 package vip.gg.community.demo.model;
 
+import lombok.Data;
+
 public class UserInfo {
     /**
      *

@@ -41,7 +41,7 @@ public class FormAuthenticationProvider implements AuthenticationProvider {
         //数据库查询用户
         String username = authentication.getPrincipal().toString();
         UserAuthExample userExample = new UserAuthExample();
-        userExample.createCriteria().andAccountIdEqualTo(username);
+        userExample.createCriteria().andNameEqualTo(username);
         List<UserAuth> users = userAuthMapper.selectByExample(userExample);
 
         if (users == null || users.size() == 0) {
@@ -49,7 +49,7 @@ public class FormAuthenticationProvider implements AuthenticationProvider {
         }
         UserAuth user = users.get(0);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        //String encodePassword= bCryptPasswordEncoder.encode((String)authentication.getCredentials());
+        //String encodePassword = bCryptPasswordEncoder.encode((String)authentication.getCredentials());
 
         if (user.getName() != null && bCryptPasswordEncoder.matches((String)authentication.getCredentials(),user.getPassword())) {
                 request.getSession().setAttribute("user",user);
@@ -69,6 +69,7 @@ public class FormAuthenticationProvider implements AuthenticationProvider {
      */
     @Override
     public boolean supports(Class<?> authentication) {
+        //Boolean b = UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
         return  UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }
